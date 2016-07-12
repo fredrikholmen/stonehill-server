@@ -93,6 +93,30 @@ app.get("/power/month", function(req, res) {
 
 });
 
+app.get("/power/timeline/minute", function(req, res) {
+
+  Power.timeline_minute(function(err, result) {
+    if (err) {
+      handleError(err, err.message, "Failed to execute timeline query");
+    } else {
+      res.status(201).json(result);
+    }
+  })
+
+});
+
+app.get("/power/timeline/today", function(req, res) {
+
+  Power.timeline_today(function(err, result) {
+    if (err) {
+      handleError(err, err.message, "Failed to execute timeline query");
+    } else {
+      res.status(201).json(result);
+    }
+  })
+
+});
+
 app.post("/contacts", function(req, res) {
 });
 

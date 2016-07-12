@@ -55,7 +55,25 @@ module.exports = {
 		var query = "select count(id) as month from watthours where DATE(datetime) > date_format(curdate(), '%Y-%m-01');";
 
 		execQuery(query, null, callback);
-	}
+	},
+
+	timeline_minute: function(callback) {
+		var query = "select date_format(datetime, '%H:%i') as slot, count(id)/1000 as energy from watthours where datetime >= date_sub(now(), INTERVAL 60 MINUTE) group by date_format(datetime, '%H:%i') order by id asc;";
+
+		execQuery(query, null, callback);
+	},
+
+	timeline_today: function(callback) {
+		var query = "select date_format(datetime, '%H') as slot, count(id)/1000 as energy from watthours where DATE(datetime) = curdate() group by date_format(datetime, '%H');";
+
+		execQuery(query, null, callback);
+	},
+
+	timeline_month: function(callback) {
+		var query = "select date_format(datetime, '%H:%i') as slot, count(id)/1000 as energy from watthours where DATE(datetime) = curdate() group by date_format(datetime, '%H:%i');";
+
+		execQuery(query, null, callback);
+	},
 
 
 };
