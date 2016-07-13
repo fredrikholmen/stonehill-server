@@ -69,8 +69,14 @@ module.exports = {
 		execQuery(query, null, callback);
 	},
 
-	timeline_month: function(callback) {
-		var query = "select date_format(datetime, '%H:%i') as slot, count(id)/1000 as energy from watthours where DATE(datetime) = curdate() group by date_format(datetime, '%H:%i');";
+	timeline_7days: function(callback) {
+		var query = "select date_format(datetime, '%Y-%m-%d') as slot, count(id)/1000 as energy from watthours where DATE(datetime) > date_sub(curdate(), INTERVAL 7 DAY) group by date_format(datetime, '%Y-%m-%d') order by id asc;";
+
+		execQuery(query, null, callback);
+	},
+
+	timeline_30days: function(callback) {
+		var query = "select date_format(datetime, '%Y-%m-%d') as slot, count(id)/1000 as energy from watthours where DATE(datetime) > date_sub(curdate(), INTERVAL 30 DAY) group by date_format(datetime, '%Y-%m-%d') order by id asc;";
 
 		execQuery(query, null, callback);
 	},

@@ -117,6 +117,30 @@ app.get("/power/timeline/today", function(req, res) {
 
 });
 
+app.get("/power/timeline/7days", function(req, res) {
+
+  Power.timeline_7days(function(err, result) {
+    if (err) {
+      handleError(err, err.message, "Failed to execute timeline query");
+    } else {
+      res.status(201).json(result);
+    }
+  })
+
+});
+
+  app.get("/power/timeline/30days", function(req, res) {
+
+  Power.timeline_30days(function(err, result) {
+    if (err) {
+      handleError(err, err.message, "Failed to execute timeline query");
+    } else {
+      res.status(201).json(result);
+    }
+  })
+
+});
+
 app.post("/contacts", function(req, res) {
 });
 
