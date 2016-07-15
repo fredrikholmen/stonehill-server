@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 
 //Models
 var Power = require('./model/power');
+var Temperature = require('./model/temperature');
 
 var app = express();
 app.use(express.static(__dirname + "/public"));
@@ -53,6 +54,32 @@ function handleError(res, reason, message, code) {
 app.get("/", function(req, res) {
   res.status(201).send(new Date());
 });
+
+app.get("/temperature/current", function(req, res) {
+
+  Temperature.current(function(err, result) {
+    if (err) {
+      handleError(err, err.message, "Failed to execute temp query");
+    } else {
+      res.status(201).json(result);
+    }
+
+  });
+
+});
+
+app.get("/temperature/timeline/minute", function(req, res) {
+
+  Temperature.timeline_minute(function(err, result) {
+    if (err) {
+      handleError(err, err.message, "Failed to execute timeline query");
+    } else {
+      res.status(201).json(result);
+    }
+  })
+
+});
+
 
 app.get("/power/effect", function(req, res) {
 
