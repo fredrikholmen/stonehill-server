@@ -80,6 +80,18 @@ app.get("/temperature/timeline/minute", function(req, res) {
 
 });
 
+app.get("/temperature/timeline/today", function(req, res) {
+
+  Temperature.timeline_today(function(err, result) {
+    if (err) {
+      handleError(err, err.message, "Failed to execute timeline query");
+    } else {
+      res.status(201).json(result);
+    }
+  })
+
+});
+
 
 app.get("/power/effect", function(req, res) {
 
