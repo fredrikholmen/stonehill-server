@@ -56,6 +56,12 @@ module.exports = {
 		execQuery(query, null, callback);
 	},
 
+	timeline_30days: function(callback) {
+		var query = "select sensor as sensor, date_format(datetime, '%Y-%m-%d') as slot, avg(temperature) as temp from temperature where datetime >= date_sub(now(), INTERVAL 30 DAY) group by sensor, date_format(datetime, '%Y-%m-%d') order by id asc;";
+
+		execQuery(query, null, callback);
+	},
+
 	timeline_today: function(callback) {
 		var query = "select sensor as sensor, date_format(datetime, '%H') as slot, avg(temperature) as temp, avg(humidity) as hum from temperature where date(datetime) >= curdate() group by sensor, date_format(datetime, '%H') order by id asc;";
 

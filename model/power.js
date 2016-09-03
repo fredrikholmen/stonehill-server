@@ -40,7 +40,8 @@ module.exports = {
 
 	effect: function(callback) {
 		//var query = "select round((10*3600)/timestampdiff(SECOND,min(t.datetime), max(t.datetime))) as P from (select * from watthours order by id desc limit 10) t;";
-   		var	query = "select count(id)*3600/30 as P from watthours where datetime >= date_sub(now(), INTERVAL 30 SECOND);";
+   		//var query = "select count(id)*3600/30 as P from watthours where datetime >= date_sub(now(), INTERVAL 30 SECOND);";
+   		var query = "select lightvalue as P from watthours order by id desc LIMIT 2;";
     	execQuery(query, null, callback);
 	},
 
