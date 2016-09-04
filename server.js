@@ -92,6 +92,18 @@ app.get("/temperature/timeline/30days", function(req, res) {
 
 });
 
+app.get("/temperature/timeline/90days", function(req, res) {
+
+  Temperature.timeline_90days(function(err, result) {
+    if (err) {
+      handleError(err, err.message, "Failed to execute timeline query");
+    } else {
+      res.status(201).json(result);
+    }
+  })
+
+});
+
 app.get("/temperature/timeline/today", function(req, res) {
 
   Temperature.timeline_today(function(err, result) {
@@ -104,6 +116,8 @@ app.get("/temperature/timeline/today", function(req, res) {
 
 });
 
+
+// POWER //
 
 app.get("/power/effect", function(req, res) {
 
@@ -180,7 +194,7 @@ app.get("/power/timeline/7days", function(req, res) {
 
 });
 
-  app.get("/power/timeline/30days", function(req, res) {
+app.get("/power/timeline/30days", function(req, res) {
 
   Power.timeline_30days(function(err, result) {
     if (err) {
@@ -192,11 +206,15 @@ app.get("/power/timeline/7days", function(req, res) {
 
 });
 
-app.post("/contacts", function(req, res) {
+app.get("/power/timeline/90days", function(req, res) {
+
+  Power.timeline_90days(function(err, result) {
+    if (err) {
+      handleError(err, err.message, "Failed to execute timeline query");
+    } else {
+      res.status(201).json(result);
+    }
+  })
+
 });
 
-/*  "/contacts/:id"
- *    GET: find contact by id
- *    PUT: update contact by id
- *    DELETE: deletes contact by id
- */
